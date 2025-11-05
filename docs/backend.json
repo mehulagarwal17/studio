@@ -1,0 +1,188 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the CodeSight application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user entity."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "username": {
+          "type": "string",
+          "description": "The username chosen by the user."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the user account was created.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "username",
+        "createdAt"
+      ]
+    },
+    "CodeSnippet": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CodeSnippet",
+      "type": "object",
+      "description": "Represents a code snippet entered by a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the code snippet."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N CodeSnippet)"
+        },
+        "code": {
+          "type": "string",
+          "description": "The actual code snippet."
+        },
+        "language": {
+          "type": "string",
+          "description": "The programming language of the code snippet (e.g., 'python')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the code snippet was created.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "code",
+        "language",
+        "createdAt"
+      ]
+    },
+    "ExecutionTrace": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ExecutionTrace",
+      "type": "object",
+      "description": "Represents the execution trace of a code snippet.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the execution trace."
+        },
+        "codeSnippetId": {
+          "type": "string",
+          "description": "Reference to CodeSnippet. (Relationship: CodeSnippet 1:N ExecutionTrace)"
+        },
+        "stepNumber": {
+          "type": "number",
+          "description": "The step number in the execution trace."
+        },
+        "lineNumber": {
+          "type": "number",
+          "description": "The line number being executed at this step."
+        },
+        "variables": {
+          "type": "string",
+          "description": "JSON string representing the values of variables at this step."
+        },
+        "callStack": {
+          "type": "string",
+          "description": "JSON string representing the function call stack at this step."
+        },
+        "output": {
+          "type": "string",
+          "description": "The console output generated at this step."
+        }
+      },
+      "required": [
+        "id",
+        "codeSnippetId",
+        "stepNumber",
+        "lineNumber",
+        "variables",
+        "callStack",
+        "output"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles. Accessible only to the authenticated user with matching userId. Includes user's id, email, username and creation timestamp.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user.  This MUST match the Firebase Auth UID."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/codeSnippets/{codeSnippetId}",
+        "definition": {
+          "entityName": "CodeSnippet",
+          "schema": {
+            "$ref": "#/backend/entities/CodeSnippet"
+          },
+          "description": "Stores code snippets created by a specific user. Only the user with matching userId can access these code snippets. Includes the code snippet's id, the userId of the creator, the code itself, the programming language, and the creation timestamp.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who owns the code snippet."
+            },
+            {
+              "name": "codeSnippetId",
+              "description": "The unique identifier for the code snippet."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/codeSnippets/{codeSnippetId}/executionTraces/{executionTraceId}",
+        "definition": {
+          "entityName": "ExecutionTrace",
+          "schema": {
+            "$ref": "#/backend/entities/ExecutionTrace"
+          },
+          "description": "Stores execution traces for a specific code snippet. Only the user with matching userId can access these execution traces. Includes the execution trace's id, the codeSnippetId, the step number, line number, variable values, call stack, and output.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user who owns the code snippet and execution trace."
+            },
+            {
+              "name": "codeSnippetId",
+              "description": "The unique identifier for the code snippet associated with the execution trace."
+            },
+            {
+              "name": "executionTraceId",
+              "description": "The unique identifier for the execution trace."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to ensure security, scalability, and debuggability, adhering to the principles of Authorization Independence, Clarity of Intent, DBAC, and QAPs. User data is stored in a private collection `/users/{userId}` accessible only to the authenticated user. Code snippets are stored as subcollections under each user (`/users/{userId}/codeSnippets/{codeSnippetId}`). Execution traces are stored as subcollections under each code snippet (`/users/{userId}/codeSnippets/{codeSnippetId}/executionTraces/{executionTraceId}`). This structure enforces path-based ownership, making security rules straightforward and efficient. Authorization independence is achieved because access to code snippets and their execution traces depends only on the `userId` derived from the path and the authenticated user's `uid`.  QAPs are supported because listing code snippets is secured by only allowing access to the snippets owned by the user (`/users/{userId}/codeSnippets`). Similarly, listing execution traces is secured by the hierarchical path. No `get()` calls are needed in the security rules to determine ownership. Data clarity is enhanced through explicit state modeling. Predictable schema are enforced by requiring specific keys.  Radical consistency is ensured through semantic naming conventions."
+  }
+}

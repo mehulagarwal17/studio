@@ -1,0 +1,139 @@
+/**
+ * @file Firestore Security Rules
+ * @description This ruleset enforces a strict user-ownership model for the CodeSight application.
+ * All data is nested under /users/{userId}, ensuring that users can only access their own data.
+ *
+ * Data Structure:
+ * - /users/{userId}: Stores user profile information. Only the user with the matching userId can access this data.
+ * - /users/{userId}/codeSnippets/{codeSnippetId}: Stores code snippets created by a specific user. Only the owning user can access these.
+ * - /users/{userId}/codeSnippets/{codeSnippetId}/executionTraces/{executionTraceId}: Stores execution traces for code snippets. Access is restricted to the owning user.
+ *
+ * Key Security Decisions:
+ * - User listing is disallowed to protect user privacy.
+ * - Default security posture is strict owner-only access. Any deviation requires explicit justification and code.
+ * - Data validation during write operations is limited to authorization-critical fields.
+ *
+ * Denormalization for Authorization:
+ * - The data structure inherently denormalizes the user ID by nesting all data under /users/{userId}.
+ *   This allows for efficient path-based authorization without requiring additional reads.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Protects the `/users` collection.
+     * @path /users/{userId}
+     * @allow (create) User with matching auth UID can create their own profile.
+     * @allow (get, update, delete) User with matching auth UID can access their own profile.
+     * @deny (create) User cannot create a profile with a mismatched UID.
+     * @deny (list) Listing all users is not permitted.
+     * @principle Enforces document ownership for writes and restricts access to a user's own data.
+     */
+    match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      // Allows a user to create their own profile if the userId matches their auth.uid.
+      allow create: if isSignedIn()
+                    && isOwner(userId)
+                    && request.resource.data.id == request.auth.uid; // Force client to set correct id
+      // Allows a user to read their own profile.
+      allow get: if isSignedIn() && isOwner(userId);
+      // Allows a user to update their own profile. Also enforces immutability for userId (id).
+      allow update: if isSignedIn() && isExistingOwner(userId)
+                     && request.resource.data.id == resource.data.id; // Enforce immutability of userId.
+      // Allows a user to delete their own profile.
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+
+      //  Listing all users is not permitted.
+      allow list: if false;
+    }
+
+    /**
+     * @description Protects the `/codeSnippets` subcollection under a specific user.
+     * @path /users/{userId}/codeSnippets/{codeSnippetId}
+     * @allow (create) User with matching auth UID can create code snippets under their profile.
+     * @allow (get, list, update, delete) User with matching auth UID can access and manage their own code snippets.
+     * @deny (create) User cannot create code snippets with a mismatched UID.
+     * @principle Enforces document ownership for writes and restricts access to a user's own data.
+     */
+    match /users/{userId}/codeSnippets/{codeSnippetId} {
+       function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+      // Allows a user to create a code snippet if the userId matches their auth.uid.
+      allow create: if isSignedIn()
+                    && isOwner(userId)
+                    && request.resource.data.userId == userId; // Enforce userId consistency.
+
+      // Allows a user to read a specific code snippet.
+      allow get: if isSignedIn() && isOwner(userId);
+
+      // Allows a user to list code snippets they own.
+      allow list: if isSignedIn() && isOwner(userId);
+
+      // Allows a user to update their own code snippet. Also enforces immutability for userId.
+      allow update: if isSignedIn() && isExistingOwner(userId)
+                     && request.resource.data.userId == resource.data.userId; // Enforce immutability of userId.
+
+      // Allows a user to delete their own code snippet.
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+
+    /**
+     * @description Protects the `/executionTraces` subcollection under a specific code snippet.
+     * @path /users/{userId}/codeSnippets/{codeSnippetId}/executionTraces/{executionTraceId}
+     * @allow (create) User with matching auth UID can create execution traces under their code snippets.
+     * @allow (get, list, update, delete) User with matching auth UID can access and manage their own execution traces.
+     * @deny (create) User cannot create execution traces with a mismatched UID.
+     * @principle Enforces document ownership for writes and restricts access to a user's own data.
+     */
+    match /users/{userId}/codeSnippets/{codeSnippetId}/executionTraces/{executionTraceId} {
+       function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      // Allows a user to create an execution trace if the userId matches their auth.uid.
+      allow create: if isSignedIn()
+                    && isOwner(userId);
+
+      // Allows a user to read a specific execution trace.
+      allow get: if isSignedIn() && isOwner(userId);
+
+      // Allows a user to list execution traces for a code snippet they own.
+      allow list: if isSignedIn() && isOwner(userId);
+
+      // Allows a user to update their own execution trace.
+      allow update: if isSignedIn() && isExistingOwner(userId);
+
+      // Allows a user to delete their own execution trace.
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+  }
+}
