@@ -30,15 +30,19 @@ export function TrustedBy() {
           <p className="text-sm font-semibold tracking-widest text-foreground/60 uppercase">
             The #1 Professional Vibe Coding Tool Trusted By
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {companies.map((company) => (
-              <div
-                key={company.name}
-                className="text-foreground/70 transition-colors hover:text-foreground"
-              >
-                {company.logo}
-              </div>
-            ))}
+          <div className="relative mt-8 w-full overflow-hidden">
+            <div className="flex w-max animate-[scroll_40s_linear_infinite]">
+              {[...companies, ...companies].map((company, index) => (
+                <div
+                  key={index}
+                  className="w-[160px] flex-shrink-0 text-foreground/70 transition-colors hover:text-foreground mx-6 flex items-center justify-center h-12"
+                >
+                  {company.logo}
+                </div>
+              ))}
+            </div>
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent"></div>
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent"></div>
           </div>
         </div>
       </div>

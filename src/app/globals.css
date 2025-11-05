@@ -43,3 +43,11 @@
 .font-code {
   font-family: var(--font-code);
 }
+
+@layer utilities {
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+}
