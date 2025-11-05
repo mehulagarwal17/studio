@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Github, Plus } from 'lucide-react';
@@ -16,6 +17,44 @@ const FigmaIcon = () => (
   );
 
 export function Hero() {
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const phrases = [
+    "Let's build a data visualization tool",
+    "An interactive Python debugger",
+    "A tool to teach recursion visually",
+    "A live markdown editor with AI",
+  ];
+  const period = 2000;
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const i = loopNum % phrases.length;
+      const fullText = phrases[i];
+
+      setText(
+        isDeleting
+          ? fullText.substring(0, text.length - 1)
+          : fullText.substring(0, text.length + 1)
+      );
+
+      setTypingSpeed(isDeleting ? 30 : 150);
+
+      if (!isDeleting && text === fullText) {
+        setTimeout(() => setIsDeleting(true), period);
+      } else if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+    };
+
+    const ticker = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(ticker);
+  }, [text, isDeleting, loopNum, typingSpeed, phrases, period]);
+
   return (
     <section className="relative py-20 sm:py-28 lg:pb-20 lg:pt-32 overflow-hidden">
        <div className="absolute inset-x-0 bottom-0 z-0 h-64 w-full bg-gradient-to-t from-primary/10 to-transparent"></div>
@@ -41,7 +80,7 @@ export function Hero() {
         <div className="mt-10 max-w-2xl mx-auto">
           <div className="bg-card/50 border border-border/50 rounded-2xl p-4 shadow-xl shadow-primary/10">
             <Textarea 
-              placeholder="Let's build a data visualization tool" 
+              placeholder={text + '|'}
               className="bg-transparent border-0 text-base h-20 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-foreground/50"
             />
             <div className="flex items-center justify-between mt-2">
