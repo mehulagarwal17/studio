@@ -5,6 +5,7 @@ import { CTA } from "@/components/landing/cta";
 import { Footer } from "@/components/landing/footer";
 import Header from "@/components/landing/header";
 import { TrustedBy } from "@/components/landing/trusted-by";
+import { TopBanner } from "@/components/landing/top-banner";
 
 export default function LandingPage() {
   return (
@@ -14,6 +15,7 @@ export default function LandingPage() {
           <div className="w-[800px] h-[800px] bg-primary/10 rounded-full blur-[200px]" />
         </div>
       </div>
+      <TopBanner />
       <Header />
       <main className="flex-1 relative z-10">
         <Hero />
