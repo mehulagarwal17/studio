@@ -8,10 +8,13 @@ export function CTA() {
       <div className="container text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Experience how your code thinks.
+            Ready to build something amazing?
           </h2>
+          <p className="mt-4 text-lg text-foreground/70">
+            Try it out and start building for free.
+          </p>
           <div className="mt-8">
-            <Button size="lg" className="animate-pulse">Launch Visualizer</Button>
+            <Button size="lg" className="animate-pulse">Build now</Button>
           </div>
           <p className="mt-4 text-sm text-foreground/60">Free to explore. No setup needed.</p>
         </div>
