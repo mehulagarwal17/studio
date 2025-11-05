@@ -5,6 +5,7 @@ import { CTA } from "@/components/landing/cta";
 import { Footer } from "@/components/landing/footer";
 import Header from "@/components/landing/header";
 import { TrustedBy } from "@/components/landing/trusted-by";
+import { Pricing } from "@/components/landing/pricing";
 
 export default function LandingPage() {
   return (
@@ -20,6 +21,7 @@ export default function LandingPage() {
         <TrustedBy />
         <Features />
         <HowItWorks />
+        <Pricing />
         <CTA />
       </main>
       <Footer />
