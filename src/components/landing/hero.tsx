@@ -17,7 +17,7 @@ const FigmaIcon = () => (
 
 export function Hero() {
   return (
-    <section className="relative py-20 sm:py-28 lg:py-32 overflow-hidden">
+    <section className="relative py-20 sm:py-28 lg:pb-20 lg:pt-32 overflow-hidden">
        <div className="absolute inset-x-0 bottom-0 z-0 h-64 w-full bg-gradient-to-t from-primary/10 to-transparent"></div>
        <div className="absolute inset-x-0 bottom-0 z-0 h-40 w-full bg-gradient-to-t from-background via-background/80 to-transparent"></div>
       <div className="container text-center relative z-10">

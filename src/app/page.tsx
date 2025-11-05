@@ -5,6 +5,7 @@ import { HowItWorks } from "@/components/landing/how-it-works";
 import { CTA } from "@/components/landing/cta";
 import { Footer } from "@/components/landing/footer";
 import Header from "@/components/landing/header";
+import { TrustedBy } from "@/components/landing/trusted-by";
 
 export default function LandingPage() {
   return (
@@ -17,6 +18,7 @@ export default function LandingPage() {
       <Header />
       <main className="flex-1 relative z-10">
         <Hero />
+        <TrustedBy />
         <Demo />
         <Features />
         <HowItWorks />
