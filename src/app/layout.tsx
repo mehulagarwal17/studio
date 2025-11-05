@@ -4,8 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/codesight/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'CodeSight',
-  description: 'AI-powered interactive code visualizer',
+  title: 'CodeSight - See Your Code Come Alive',
+  description: 'An AI agent that turns your code into stunning, interactive visuals. Understand logic. Trace execution. Learn faster.',
 };
 
 export default function RootLayout({
@@ -19,12 +19,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Code+Pro:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className="font-body antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <Toaster />
         </ThemeProvider>
