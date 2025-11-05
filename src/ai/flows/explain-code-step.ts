@@ -41,9 +41,9 @@ const prompt = ai.definePrompt({
   Given the following information about the current step of code execution, generate a concise and clear explanation of what is happening.
 
   Code Snippet:
-  ```
+  \`\`\`
   {{{codeSnippet}}}
-  ```
+  \`\`\`
 
   Line Number: {{{lineNumber}}}
 
