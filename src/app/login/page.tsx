@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
 } from 'firebase/auth';
 import { useAuth } from '@/firebase';
@@ -42,6 +42,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
@@ -64,19 +65,19 @@ export default function LoginPage() {
   };
 
   const handleGoogleSignIn = async () => {
-    setIsLoading(true);
+    setIsGoogleLoading(true);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      router.push('/dashboard');
+      await signInWithRedirect(auth, provider);
+      // The user is redirected, so no need to handle success here.
+      // Firebase handles the redirect back and auth state persistence.
     } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Google Sign-in Failed',
         description: error.message,
       });
-    } finally {
-      setIsLoading(false);
+      setIsGoogleLoading(false);
     }
   };
 
@@ -105,10 +106,9 @@ export default function LoginPage() {
               className="w-full"
               type="button"
               onClick={handleGoogleSignIn}
-              disabled={isLoading}
+              disabled={isLoading || isGoogleLoading}
             >
-              <GoogleIcon className="mr-2 h-4 w-4" />
-              Sign in with Google
+              {isGoogleLoading ? 'Redirecting...' : <><GoogleIcon className="mr-2 h-4 w-4" /> Sign in with Google</>}
             </Button>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -129,7 +129,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={isLoading}
+                disabled={isLoading || isGoogleLoading}
               />
             </div>
             <div className="grid gap-2">
@@ -140,10 +140,10 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                disabled={isLoading}
+                disabled={isLoading || isGoogleLoading}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full" disabled={isLoading || isGoogleLoading}>
               {isLoading ? 'Signing In...' : 'Sign In'}
             </Button>
           </form>
