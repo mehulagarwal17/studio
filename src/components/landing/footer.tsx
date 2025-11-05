@@ -82,7 +82,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-2">
             <a className="flex items-center space-x-2" href="/">
               <CodeXml className="h-6 w-6 text-primary" />
-              <span className="font-bold sm:inline-block text-lg">CodeSight</span>
+              <span className="font-bold sm:inline-block text-lg font-headline">CodeSight</span>
             </a>
             <p className="mt-4 text-sm text-foreground/60 max-w-xs">
               AI that shows what your code is thinking.
