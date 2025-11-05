@@ -1,5 +1,4 @@
 import { CodeXml } from 'lucide-react';
-import { ThemeToggle } from '@/components/codesight/theme-toggle';
 import { Button } from '../ui/button';
 
 export default function Header() {
@@ -18,7 +17,6 @@ export default function Header() {
           <a href="#how-it-works" className="transition-colors hover:text-foreground/80 text-foreground/60">How It Works</a>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <ThemeToggle />
            <Button className="hidden sm:inline-flex">Try Live Demo</Button>
         </div>
       </div>
