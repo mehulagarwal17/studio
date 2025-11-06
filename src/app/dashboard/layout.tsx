@@ -36,10 +36,10 @@ import { useAuth } from '@/firebase';
 
 const sidebarNavLinks = [
   { href: '/dashboard', icon: Home, label: 'Home' },
-  { href: '#', icon: Swords, label: 'Arena' },
-  { href: '#', icon: BookOpen, label: 'Learn' },
-  { href: '#', icon: BarChart, label: 'Stats' },
-  { href: '#', icon: BrainCircuit, label: 'AI Mentor' },
+  { href: '/arena', icon: Swords, label: 'Arena' },
+  { href: '/learn', icon: BookOpen, label: 'Learn' },
+  { href: '/stats', icon: BarChart, label: 'Stats' },
+  { href: '/ai-mentor', icon: BrainCircuit, label: 'AI Mentor' },
 ];
 
 function UserProfile() {
