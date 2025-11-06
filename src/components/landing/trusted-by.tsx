@@ -28,7 +28,7 @@ export function TrustedBy() {
       <div className="container">
         <div className="text-center">
           <p className="text-sm font-semibold tracking-widest text-foreground/60 uppercase">
-            The #1 Professional Vibe Coding Tool Trusted By
+            The #1 Professional Visualizing Tool Trusted By
           </p>
           <div className="relative mt-8 w-full overflow-hidden">
             <div className="flex w-max animate-[scroll_40s_linear_infinite]">
