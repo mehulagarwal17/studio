@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bot } from "lucide-react";
+import Link from "next/link";
 
 export function CTA() {
   return (
@@ -17,8 +18,12 @@ export function CTA() {
             Try it out and start building for free. No setup needed.
           </p>
           <div className="mt-8 flex gap-4 justify-center lg:justify-start">
-            <Button size="lg">Build now</Button>
-            <Button size="lg" variant="outline">Sign Up</Button>
+            <Button size="lg" asChild>
+              <Link href="/login">Build now</Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/signup">Sign Up</Link>
+            </Button>
           </div>
         </div>
         <div className="relative flex justify-center">

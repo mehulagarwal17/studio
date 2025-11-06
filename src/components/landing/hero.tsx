@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Github, Plus } from 'lucide-react';
+import Link from 'next/link';
 
 const FigmaIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,7 +90,9 @@ export function Hero() {
               </Button>
               <div className="flex items-center gap-2">
                 <Button variant="ghost" className="text-foreground/70">Plan</Button>
-                <Button>Build now</Button>
+                <Button asChild>
+                  <Link href="/login">Build now</Link>
+                </Button>
               </div>
             </div>
           </div>
