@@ -89,29 +89,32 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <div className="mr-auto flex">
-          <a className="mr-6 flex items-center space-x-2" href="/">
-            <CodeXml className="h-6 w-6 text-primary" />
-            <span className="font-bold sm:inline-block text-lg">
-              CodeSight
-            </span>
-          </a>
+        <a className="mr-6 flex items-center space-x-2" href="/">
+          <CodeXml className="h-6 w-6 text-primary" />
+          <span className="font-bold sm:inline-block text-lg">
+            CodeSight
+          </span>
+        </a>
+
+        <div className="hidden md:flex flex-1 items-center justify-center">
+          <div className="bg-card/60 border border-border rounded-full px-3 py-1 backdrop-blur-sm">
+            <nav className="flex items-center space-x-2 text-sm font-medium">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={cn(
+                    'flex items-center gap-1 transition-colors hover:text-foreground/90 text-foreground/70 px-3 py-1.5 rounded-full'
+                  )}
+                >
+                  {link.label}
+                  {link.dropdown && <ChevronDown className="h-4 w-4" />}
+                </a>
+              ))}
+            </nav>
+          </div>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium mr-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={cn(
-                'flex items-center gap-1 transition-colors hover:text-foreground/80 text-foreground/80'
-              )}
-            >
-              {link.label}
-              {link.dropdown && <ChevronDown className="h-4 w-4" />}
-            </a>
-          ))}
-        </nav>
 
         <div className="flex items-center justify-end space-x-4">
           {isUserLoading ? null : user ? (
