@@ -4,11 +4,11 @@ import {
   Home,
   Swords,
   BookOpen,
-  BarChart,
   BrainCircuit,
   Zap,
   Crown,
   PanelLeft,
+  Code,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -38,7 +38,7 @@ const sidebarNavLinks = [
   { href: '/dashboard', icon: Home, label: 'Home' },
   { href: '/arena', icon: Swords, label: 'Arena' },
   { href: '/learn', icon: BookOpen, label: 'Learn' },
-  { href: '/stats', icon: BarChart, label: 'Stats' },
+  { href: '/codesight', icon: Code, label: 'CodeSight' },
   { href: '/ai-mentor', icon: BrainCircuit, label: 'AI Mentor' },
 ];
 
