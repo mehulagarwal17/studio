@@ -50,4 +50,35 @@
       transform: translate(calc(-50% - 0.5rem));
     }
   }
+
+  @keyframes animated-gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animated-background {
+    background: radial-gradient(
+        circle at 10% 20%,
+        hsl(var(--primary) / 0.1),
+        transparent 25%
+      ),
+      radial-gradient(
+        circle at 90% 80%,
+        hsl(var(--accent) / 0.1),
+        transparent 25%
+      );
+    background-size: 200% 200%;
+    animation: animated-gradient 15s ease infinite;
+  }
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
 }

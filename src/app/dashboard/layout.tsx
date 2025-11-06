@@ -97,41 +97,49 @@ export default function DashboardLayout({
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
       <TooltipProvider>
-        <aside className="fixed inset-y-0 left-0 z-10 hidden w-60 flex-col border-r bg-card sm:flex">
-          <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-            <Link
-              href="#"
-              className="group flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary-foreground md:h-8 md:text-base"
-            >
-              <Zap className="h-5 w-5 text-primary" />
-              <span className="font-bold text-foreground">AlgoArena</span>
-            </Link>
-            <div className="w-full flex-1 overflow-auto">
-              <div className="grid items-start px-2 text-sm font-medium">
-                {sidebarNavLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={cn(
-                      'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
-                      pathname === link.href && 'bg-muted text-primary'
-                    )}
-                  >
-                    <link.icon className="h-4 w-4" />
-                    {link.label}
-                  </Link>
-                ))}
+        <aside className="fixed inset-y-0 left-0 z-10 hidden w-60 flex-col border-r bg-card sm:flex overflow-hidden">
+          <div className="absolute inset-0 animated-background"></div>
+          <div className="absolute left-4 top-1/2 -translate-y-1/2">
+            <h1 className="vertical-text text-8xl font-extrabold tracking-widest text-foreground/5 opacity-50 select-none">
+              CodeSight
+            </h1>
+          </div>
+          <div className="relative z-10 flex flex-col h-full">
+            <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
+              <Link
+                href="#"
+                className="group flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary-foreground md:h-8 md:text-base"
+              >
+                <Zap className="h-5 w-5 text-primary" />
+                <span className="font-bold text-foreground">AlgoArena</span>
+              </Link>
+              <div className="w-full flex-1 overflow-auto">
+                <div className="grid items-start px-2 text-sm font-medium">
+                  {sidebarNavLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+                        pathname === link.href && 'bg-muted text-primary'
+                      )}
+                    >
+                      <link.icon className="h-4 w-4" />
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-          </nav>
-          <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-            <div className="w-full p-2">
-              <Button variant="outline" className="w-full gap-2">
-                <Crown className="h-4 w-4 text-yellow-500" />
-                Upgrade to Pro
-              </Button>
-            </div>
-          </nav>
+            </nav>
+            <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+              <div className="w-full p-2">
+                <Button variant="outline" className="w-full gap-2">
+                  <Crown className="h-4 w-4 text-yellow-500" />
+                  Upgrade to Pro
+                </Button>
+              </div>
+            </nav>
+          </div>
         </aside>
       </TooltipProvider>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-64">
