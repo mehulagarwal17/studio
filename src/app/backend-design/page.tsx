@@ -7,14 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
-import { Server, KeyRound, Type, FileJson, FolderGit2 } from 'lucide-react';
+import { Server, KeyRound } from 'lucide-react';
 import { BackendStructureClient } from './client-page';
 
 async function getBackendData() {
@@ -46,19 +40,19 @@ export default async function BackendDesignPage() {
       <header className="mb-8">
         <h1 className="text-4xl font-bold tracking-tight flex items-center gap-3">
           <Server className="h-8 w-8" />
-          Backend Design
+          Backend Design Board
         </h1>
         <p className="text-muted-foreground mt-2">
-          A visual breakdown of your application's backend architecture, data models, and authentication.
+          A visual blueprint of your application's backend architecture, data models, and authentication.
         </p>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2 space-y-8">
-          <BackendStructureClient backendData={backendData} />
+        <div className="lg:col-span-2">
+           <BackendStructureClient backendData={backendData} />
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-8 lg:sticky lg:top-24">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
