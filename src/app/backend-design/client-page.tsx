@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { KeyRound } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Diagram } from './diagram';
