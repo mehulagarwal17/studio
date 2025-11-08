@@ -9,6 +9,7 @@ import {
   Crown,
   PanelLeft,
   Code,
+  LayoutGrid,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -37,7 +38,7 @@ import { useAuth } from '@/firebase';
 const sidebarNavLinks = [
   { href: '/dashboard', icon: Home, label: 'Home' },
   { href: '/arena', icon: Swords, label: 'Arena' },
-  { href: '/learn', icon: BookOpen, label: 'Learn' },
+  { href: '/learn', icon: LayoutGrid, label: 'Learn' },
   { href: '/codesight', icon: Code, label: 'CodeSight' },
   { href: '/ai-mentor', icon: BrainCircuit, label: 'AI Mentor' },
 ];
