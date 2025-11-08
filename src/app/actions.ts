@@ -1,7 +1,11 @@
 'use server';
 
-import { explainCodeStep, ExplainCodeStepInput } from '@/ai/flows/explain-code-step';
+import {
+  explainCodeStep,
+  ExplainCodeStepInput,
+} from '@/ai/flows/explain-code-step';
 import { provideContextualGuidance } from '@/ai/flows/provide-contextual-guidance';
+import { generateImageFromCode } from '@/ai/flows/generate-image-from-code';
 import { ExecutionStep } from '@/lib/types';
 
 export async function getExplanation(
@@ -18,7 +22,7 @@ export async function getExplanation(
       ...step.globals,
       ...activeFrame.locals,
     };
-    
+
     // The AI doesn't need to see the function reference object.
     if (variables.factorial) delete variables.factorial;
 
@@ -48,5 +52,16 @@ export async function getContextualGuidance(code: string): Promise<string[]> {
   } catch (error) {
     console.error('Error getting contextual guidance:', error);
     return ['Could not analyze code. Please try again.'];
+  }
+}
+
+export async function getImageFromCode(code: string): Promise<string> {
+  try {
+    const result = await generateImageFromCode({ code });
+    return result.imageUrl;
+  } catch (error) {
+    console.error('Error generating image from code:', error);
+    // You might want a default or placeholder image URL here
+    return '';
   }
 }
