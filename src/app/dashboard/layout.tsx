@@ -10,6 +10,7 @@ import {
   PanelLeft,
   Code,
   LayoutGrid,
+  Server,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -40,6 +41,7 @@ const sidebarNavLinks = [
   { href: '/arena', icon: Swords, label: 'Arena' },
   { href: '/learn', icon: LayoutGrid, label: 'Learn' },
   { href: '/codesight', icon: Code, label: 'CodeSight' },
+  { href: '/backend-design', icon: Server, label: 'Backend Design' },
   { href: '/ai-mentor', icon: BrainCircuit, label: 'AI Mentor' },
 ];
 
