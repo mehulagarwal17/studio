@@ -11,6 +11,8 @@ import {
   Code,
   LayoutGrid,
   Server,
+  User as UserIcon,
+  Settings,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -43,6 +45,8 @@ const sidebarNavLinks = [
   { href: '/codesight', icon: Code, label: 'CodeSight' },
   { href: '/backend-design', icon: Server, label: 'Backend Design' },
   { href: '/ai-mentor', icon: BrainCircuit, label: 'AI Mentor' },
+  { href: '/profile', icon: UserIcon, label: 'Profile' },
+  { href: '/settings', icon: Settings, label: 'Settings' },
 ];
 
 function UserProfile() {
