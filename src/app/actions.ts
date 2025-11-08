@@ -6,6 +6,7 @@ import {
 } from '@/ai/flows/explain-code-step';
 import { provideContextualGuidance } from '@/ai/flows/provide-contextual-guidance';
 import { generateImageFromCode } from '@/ai/flows/generate-image-from-code';
+import { chat, ChatInput } from '@/ai/flows/chat';
 import { ExecutionStep } from '@/lib/types';
 
 export async function getExplanation(
@@ -63,5 +64,15 @@ export async function getImageFromCode(code: string): Promise<string> {
     console.error('Error generating image from code:', error);
     // You might want a default or placeholder image URL here
     return '';
+  }
+}
+
+export async function getChatbotResponse(input: ChatInput): Promise<string> {
+  try {
+    const result = await chat(input);
+    return result.response;
+  } catch (error) {
+    console.error('Error getting chatbot response:', error);
+    return 'Sorry, I encountered an error. Please try again.';
   }
 }
