@@ -14,6 +14,7 @@ export interface Video {
   imageHint: string;
   category: string;
   duration: string;
+  url: string;
 }
 
 interface VideoCardProps {
@@ -22,7 +23,7 @@ interface VideoCardProps {
 
 export function VideoCard({ video }: VideoCardProps) {
   return (
-    <Link href="#" className="group">
+    <Link href={video.url} target="_blank" rel="noopener noreferrer" className="group">
       <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/10">
         <CardHeader className="p-0 relative">
           <div className="aspect-video relative overflow-hidden">

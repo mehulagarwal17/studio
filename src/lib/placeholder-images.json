@@ -7,7 +7,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs1/600/400",
       "imageHint": "algorithm complexity",
       "category": "Algorithms",
-      "duration": "12:45"
+      "duration": "12:45",
+      "url": "https://www.udemy.com/topic/algorithms/"
     },
     {
       "id": "2",
@@ -16,7 +17,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs2/600/400",
       "imageHint": "data structure",
       "category": "Data Structures",
-      "duration": "25:10"
+      "duration": "25:10",
+      "url": "https://www.udemy.com/topic/data-structures/"
     },
     {
       "id": "3",
@@ -25,7 +27,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs3/600/400",
       "imageHint": "web development",
       "category": "Web Development",
-      "duration": "18:30"
+      "duration": "18:30",
+      "url": "https://www.udemy.com/topic/react/"
     },
     {
       "id": "4",
@@ -34,7 +37,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs4/600/400",
       "imageHint": "sorting algorithm",
       "category": "Algorithms",
-      "duration": "15:20"
+      "duration": "15:20",
+      "url": "https://www.udemy.com/topic/algorithms/"
     },
     {
       "id": "5",
@@ -43,7 +47,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs5/600/400",
       "imageHint": "hash table",
       "category": "Data Structures",
-      "duration": "22:00"
+      "duration": "22:00",
+      "url": "https://www.udemy.com/topic/data-structures/"
     },
     {
       "id": "6",
@@ -52,7 +57,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs6/600/400",
       "imageHint": "backend api",
       "category": "Web Development",
-      "duration": "45:50"
+      "duration": "45:50",
+      "url": "https://www.udemy.com/topic/nodejs/"
     },
     {
       "id": "7",
@@ -61,7 +67,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs7/600/400",
       "imageHint": "dynamic programming",
       "category": "Algorithms",
-      "duration": "35:15"
+      "duration": "35:15",
+      "url": "https://www.udemy.com/topic/dynamic-programming/"
     },
     {
       "id": "8",
@@ -70,7 +77,8 @@
       "thumbnailUrl": "https://picsum.photos/seed/cs8/600/400",
       "imageHint": "binary tree",
       "category": "Data Structures",
-      "duration": "28:40"
+      "duration": "28:40",
+      "url": "https://www.udemy.com/topic/data-structures/"
     }
   ]
 }
